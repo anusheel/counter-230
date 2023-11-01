@@ -11,7 +11,12 @@ export default function handler(
   res: NextApiResponse<Data>
 ) {
   if (req.method === 'POST') {
-    count++;
+    const { action } = req.body;
+    if (action === 'increase') {
+      count++;
+    } else if (action === 'decrease') {
+      count--;
+    }
     res.status(200).json({ count: count })
   } else {
     res.status(405).end() // Method Not Allowed
