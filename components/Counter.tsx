@@ -3,6 +3,15 @@ import { useState, useEffect } from 'react';
 const Counter = () => {
   const [count, setCount] = useState(0);
 
+  useEffect(() => {
+    const getCount = async () => {
+      const response = await fetch('/api/counter');
+      const data = await response.json();
+      setCount(data.count);
+    };
+    getCount();
+  }, []);
+
   const increaseCount = async () => {
     const response = await fetch('/api/counter', {
       method: 'POST',
